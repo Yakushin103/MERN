@@ -1,0 +1,5 @@
+{
+    "port": "5000",
+    "jwtSecret": "vasso mern",
+    "mongoUri": "mongodb+srv://Vasso:12345@cluster0.3kdrc.azure.mongodb.net/app?retryWrites=true&w=majority"
+}
