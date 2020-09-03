@@ -1,17 +1,23 @@
-import {useState, useCallback} from 'react'
+import { useState, useCallback } from 'react'
 
 export const useHttp = () => {
     const [loading, setLoading] = useState(false)
     const [error, setError] = useState(null)
 
-    const request = useCallback(async (url, method = 'GET', body = null, headers = { 'Content-Type': 'application/json' }) => {
+    const request = useCallback(async (url, method = 'GET', body = null, headers = {}) => {
         setLoading(true)
         try {
-            let bbb = {
-                email: 'vvv@nnn.com',
-                password: '123456'
+            if (body) {
+                body = JSON.stringify(body)
+                headers['Content-Type'] = 'application/json'
             }
-            const response = await fetch(url, {method, headers, body1: bbb})
+
+            const response = await fetch(url, {
+                method,
+                mode: 'cors',
+                body,
+                headers
+            })
             const data = await response.json()
 
             if (!response.ok) {
@@ -22,7 +28,7 @@ export const useHttp = () => {
             return data
         } catch (e) {
             setLoading(false)
-            setError(e.massage)
+            setError(e.message)
             throw e
         }
     }, [])
